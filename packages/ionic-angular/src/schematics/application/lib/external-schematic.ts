@@ -14,7 +14,7 @@ export function generateNrwlAngularApplication(
     ...options,
     routing: true,
     style: 'scss',
-    linter: Linter.TsLint,
+    linter: Linter.EsLint,
   });
 }
 

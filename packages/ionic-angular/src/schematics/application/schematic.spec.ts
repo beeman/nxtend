@@ -90,6 +90,32 @@ describe('application schematic', () => {
     );
   });
 
+  it('should update .eslintrc.json', async () => {
+    const tree = await testRunner
+      .runSchematicAsync('application', options, appTree)
+      .toPromise();
+
+    const eslintrcJson = readJsonInTree(
+      tree,
+      `apps/${options.name}/.eslintrc.json`
+    );
+    const tsOverride = eslintrcJson.overrides.find(
+      (override: { files: string | string[] }) =>
+        override.files.includes('*.ts')
+    );
+
+    expect(tsOverride.rules['@angular-eslint/component-class-suffix']).toEqual([
+      'error',
+      {
+        suffixes: ['Page', 'Component'],
+      },
+    ]);
+    expect(
+      tsOverride.rules['@angular-eslint/no-empty-lifecycle-method']
+    ).toEqual(0);
+    expect(tsOverride.rules['@typescript-eslint/no-empty-function']).toEqual(0);
+  });
+
   describe('--template', () => {
     it('should add base template files', async () => {
       const tree = await testRunner

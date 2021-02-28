@@ -1,5 +1,11 @@
 # Changelog
 
+# 11.1.0
+
+## Features
+
+- generate applications with ESLint instead of TSLint
+
 # 11.0.2
 
 ## Bug Fixes
